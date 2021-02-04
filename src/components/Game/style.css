@@ -1,0 +1,18 @@
+.interface-button {
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    text-align: center;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.logout-button {
+    margin-right: 10px;
+}
+
+#canvas {
+    display: block;
+    margin: 0 auto;
+    background: #9bfcf3;
+}
