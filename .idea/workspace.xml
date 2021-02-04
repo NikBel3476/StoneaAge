@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3b292c58-d6da-482c-b713-fe34c36063fa" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1i63K7gYIhO1iaDLr0jkQpFO7Ij" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3b292c58-d6da-482c-b713-fe34c36063fa" name="Default Changelist" comment="" />
+      <created>1601214147977</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601214147977</updated>
+      <workItem from="1601214150875" duration="8000" />
+      <workItem from="1601220960676" duration="2016000" />
+      <workItem from="1601223943837" duration="3031000" />
+      <workItem from="1601226978734" duration="2010000" />
+      <workItem from="1601638639126" duration="1886000" />
+      <workItem from="1601640670694" duration="6818000" />
+      <workItem from="1601651425160" duration="4440000" />
+      <workItem from="1601726823060" duration="196000" />
+      <workItem from="1602146270017" duration="5690000" />
+      <workItem from="1602156822074" duration="8569000" />
+      <workItem from="1602177832636" duration="828000" />
+      <workItem from="1602257406782" duration="5781000" />
+      <workItem from="1602263314231" duration="961000" />
+      <workItem from="1602424770126" duration="7404000" />
+      <workItem from="1602432928540" duration="11412000" />
+      <workItem from="1602497921049" duration="48000" />
+      <workItem from="1602776435525" duration="18000" />
+      <workItem from="1602786474322" duration="2714000" />
+      <workItem from="1602847841145" duration="21190000" />
+      <workItem from="1603466266120" duration="2092000" />
+      <workItem from="1603519845024" duration="1236000" />
+      <workItem from="1603524053445" duration="1779000" />
+      <workItem from="1603627784042" duration="6874000" />
+      <workItem from="1603639335920" duration="6246000" />
+      <workItem from="1603801535333" duration="7909000" />
+      <workItem from="1603914586219" duration="853000" />
+      <workItem from="1603971802318" duration="1444000" />
+      <workItem from="1604069202394" duration="886000" />
+      <workItem from="1604071626769" duration="5252000" />
+      <workItem from="1604250791352" duration="110000" />
+      <workItem from="1604250915508" duration="3795000" />
+      <workItem from="1604509592105" duration="622000" />
+      <workItem from="1604583049904" duration="2979000" />
+      <workItem from="1604664366782" duration="9444000" />
+      <workItem from="1604754657096" duration="6958000" />
+      <workItem from="1604820839857" duration="1707000" />
+      <workItem from="1604944678392" duration="1646000" />
+      <workItem from="1605620845279" duration="6226000" />
+      <workItem from="1605797723481" duration="1387000" />
+      <workItem from="1605867484447" duration="4561000" />
+      <workItem from="1606047987219" duration="11947000" />
+      <workItem from="1606137910768" duration="2248000" />
+      <workItem from="1606474516231" duration="16671000" />
+      <workItem from="1606984906634" duration="589000" />
+      <workItem from="1606999715856" duration="1182000" />
+      <workItem from="1607085169838" duration="9650000" />
+      <workItem from="1607101746267" duration="696000" />
+      <workItem from="1607166610644" duration="1202000" />
+      <workItem from="1607268989036" duration="3673000" />
+      <workItem from="1607677929203" duration="7669000" />
+      <workItem from="1607697736140" duration="2807000" />
+      <workItem from="1607855969989" duration="6748000" />
+      <workItem from="1607962405996" duration="666000" />
+      <workItem from="1608315571067" duration="740000" />
+      <workItem from="1608389202283" duration="6660000" />
+      <workItem from="1608447927003" duration="15344000" />
+      <workItem from="1608480386537" duration="8524000" />
+      <workItem from="1609355724243" duration="548000" />
+      <workItem from="1610130020434" duration="762000" />
+      <workItem from="1610959820951" duration="1304000" />
+      <workItem from="1611244504742" duration="1449000" />
+      <workItem from="1611377941170" duration="4017000" />
+      <workItem from="1611654467758" duration="3629000" />
+      <workItem from="1612444083660" duration="3150000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1604250912344">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604250912344" />
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1608481813777">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608481813777" />
+    <state x="667" y="122" width="585" height="795" key="find.popup" timestamp="1606478756896">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="667" y="122" width="585" height="795" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606478756896" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1611378494583">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1611378494583" />
+  </component>
+</project>
