@@ -63,7 +63,7 @@ class Game {
                             break;
                     }
                 }
-                $this->db->changeHash();
+                $this->db->changeMapHash();
                 return true;
             }
         }
@@ -78,7 +78,7 @@ class Game {
                 if ($item->x === $human->x && $item->y === $human->y) { //проверяем координаты предметов
                     $items = $human->takeItem($item);
                     $this->db->takeItem($human->id, $items); //удаляем с карты
-                    $this->db->changeHash();
+                    $this->db->changeMapHash();
                     return true;
                     }
                 }
@@ -99,7 +99,7 @@ class Game {
             }
             if ($canDrop) {
                 $this->db->dropItem($human->right_hand, $human->x, $human->y);
-                $this->db->changeHash();
+                $this->db->changeMapHash();
                 return true;
             }
         }
@@ -254,7 +254,7 @@ class Game {
         return array (
             'tiles' => $this->getTiles(),
             'map' => $map,
-            'gamers' => $this->getGamers(),
+            'onlineGamers' => $this->getOnlineGamers(),
             'items' => $this->db->getItems()
         );
     }
@@ -264,42 +264,21 @@ class Game {
     }
 
     public function join($userId) {
-        //взять игрока
-        //если игрок не взялся, то создать его
-        //изменить хэш в maps
-        $gamer = $this->getGamer($userId);
+        $gamer = $this->getGamerByUserId($userId);
         if ($gamer) {
             $this->db->setStatusOnline($userId);
-            $this->changeHash();
-            return $gamer;
-        } else {
-            $this->db->setStatusOnline($userId);
-            $this->changeHash();
-            $gamer = $this->db->createGamer($userId);
+            $this->db->changeMapHash();
             return $gamer;
         }
     }
 
     public function leave($userId) {
-        $this->changeHash();
+        $this->changeMapHash();
         return $this->db->leave($userId);
     }
 
-    public function changeHash() {
-        return $this->db->changeHash();
-    }
-
-    public function getGamer ($gamerId) {
-        $human = $this->db->getGamer($gamerId);
-        if ($human) {
-            return new Human($human);
-        } else {
-            return false;
-        }
-    }
-
-    public function getGamers () {
-        $gamers = $this->db->getGamers();
+    public function getOnlineGamers () {
+        $gamers = $this->db->getOnlineGamers();
         $Gamers = [];
         foreach ($gamers as $key => $val) {
             $Gamers[] = new Human($gamers[$key]);
@@ -314,6 +293,44 @@ class Game {
             $Tiles[] = new Entity($tiles[$key]);
         }
         return $Tiles;
+    }
+    // to check
+    private function getGamerByUserId($userId) {
+        $gamer = $this->getGamerByUserId($userId);
+        if ($gamer) {
+            $items = $this->getItemsByGamerId($gamer->id);
+            foreach($items as $item) {
+                foreach($item as $key => $val) {
+                    if ($key === 'inventory') {
+                        $gamer->$val = $item;
+                    }
+                }
+            }
+            return new Human($gamer);
+        }
+        return false;
+    }
+
+    private function getGamerByGamerId($gamerId) {
+        $gamer = $this->db->getGamerByUserId();
+        if ($gamer) {
+            $items = $this->getGamerItemsByGamerId($gamer->id);
+            if ($items) {
+
+            }
+        }
+    }
+
+    private function getItemsByGamerId($gamerId) {
+        $items = $this->db->getItemsByGamerId($gamerId);
+        if ($items) {
+            foreach($items as $item) {
+                $defParams = $this->db->getDefaultParamsById($item->type_id);
+                $item->type = $defParams->type;
+            }
+            return $items;
+        }
+        return false;
     }
 
     /*public function fillMap() {

@@ -18,18 +18,33 @@ class DB {
         $this->conn = null;
     }
 
-    public function changeHash() {
+    public function isRepeatedLogin($login) {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE login='$login'");
+        $stmt->execute();
+        if ($stmt->fetchObject()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function changeMapHash() {
         $hash = md5(rand());
         $stmt = $this->conn->prepare("UPDATE maps SET hash='$hash'");
         $stmt->execute();
         return true;
     }
 
-    public function getGamer($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM gamer WHERE id=$id");
+    public function getGamerByLogin($login) {
+        $stmt = $this->conn->prepare("SELECT * FROM `users` WHERE `login` = '$login'");
+        $stmt->execute();
+        return $stmt->fetchObject();
+    }
+
+    public function getGamerByUserId($id) {
+        $stmt = $this->conn->prepare("SELECT * FROM `gamer` WHERE `user_id`=$id");
         $stmt->execute();
         $gamer = $stmt->fetchObject();
-        $stmt = $this->conn->prepare("SELECT * FROM items WHERE gamer_id=$id");
+        $stmt = $this->conn->prepare("SELECT * FROM `items` WHERE `user_id`=$id");
         $stmt->execute();
         $items = $stmt->fetchAll(PDO::FETCH_CLASS);
         foreach($items as $key => $val) {
@@ -51,21 +66,21 @@ class DB {
         return $gamer;
     }
 
-    public function getGamers() {
+    public function getOnlineGamers() {
         $stmt = $this->conn->prepare("SELECT id FROM gamer WHERE status='online'");
         $stmt->execute();
         $ids = $stmt->fetchAll();
         $gamers = array();
         foreach($ids as $id) {
-            $gamers[] = $this->getGamer((integer)$id['id']);
+            $gamers[] = $this->getGamerById((integer)$id['id']);
         }
         return $gamers;
     }
 
     public function createGamer($userId) {
-        $stmt = $this->conn->prepare("INSERT INTO `gamer` (`id`, `user_id`, `status`, `x`, `y`, `hp`, `satiety`) VALUES ('$userId', '$userId', 'online', 1, 1, 100, 100)");
+        $stmt = $this->conn->prepare("INSERT INTO `gamer` (`user_id`, `status`, `direction`, `x`, `y`, `hp`, `satiety`) VALUES ('$userId', 'offline', 'right', 1, 1, 100, 100)");
         $stmt->execute();
-        return $this->getGamer($userId);
+        return true;
     }
 
     public function join($userId) {
@@ -89,32 +104,25 @@ class DB {
     public function getUserByLogin($login) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE login='$login'");
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchObject();
     }
 
     public function getUserByToken($token) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE token='$token'");
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchObject();
     }
 
-    public function updateToken($id, $token) {
+    public function updateGamerTokenById($id, $token) {
         $stmt = $this->conn->prepare("UPDATE users SET token='$token' WHERE id=$id");
         $stmt->execute();
-        return true;
+        return $token;
     }
 
-    public function createUser($nickname, $login, $hash, $token) {
-        if ($nickname && $login && $hash && $token) {
-            $stmt = $this->conn->prepare("SELECT * FROM users WHERE login='$login'");
-            $stmt->execute();
-            if (!$stmt->fetch()) {
-                $stmt = $this->conn->prepare("INSERT INTO `users` (`name`, `login`, `password`, `token`) VALUES ('$nickname', '$login', '$hash', '$token')");
-                $stmt->execute();
-                return $token;
-            }
-        }
-        return false;
+    public function createUser($nickname, $login, $password, $token) {
+        $stmt = $this->conn->prepare("INSERT INTO `users` (`name`, `login`, `password`, `token`) VALUES ('$nickname', '$login', '$password', '$token')");
+        $stmt->execute();
+        return $token;
     }
 
     public function getMap() {
@@ -146,16 +154,28 @@ class DB {
         }
     }
 
-    public function getDefaultItemById($item_id) {
-        $stmt = $this->conn->prepare("SELECT * FROM `item_type` WHERE `id` = $item_id");
+    public function getDefaultParamsById($item_id) {
+        $stmt = $this->conn->prepare("SELECT * FROM `default_parameters` WHERE `id` = $item_id");
         $stmt->execute();
         return $stmt->fetchObject();
     }
 
-    public function getItems() {
+    public function getItemsOnMap() {
         $stmt = $this->conn->prepare("SELECT * FROM items WHERE inventory = 'map'");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function getItemsByGamerId($gamerId) {
+        $stmt = $this->conn->prepare("SELECT * FROM `items` WHERE `gamer_id` = $gamerId");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function getDefaultItem($item_id) {
+        $stmt = $this->conn->prepare("SELECT * FROM `default_items` WHERE `item_id` = $item_id");
+        $stmt->execute();
+        return $stmt->fetchObject();
     }
 
     public function takeItem($humanId, $items) {

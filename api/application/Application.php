@@ -11,8 +11,15 @@ class Application {
     }
 
     public function login($params) {
-        if ($params['login'] && $params['hash'] && $params['num']) {
-            return $this->user->login($params['login'], $params['hash'], $params['num']);
+        if ($params['login'] && $params['hashPassword'] && $params['token'] && $params['num']) {
+            return $this->user->login($params['login'], $params['hashPassword'], $params['token'], $params['num']);
+        }
+        return false;
+    }
+
+    public function registration($params) {
+        if ($params['nickname'] && $params['login'] && $params['hashPassword'] && $params['token'] && $params['num']) {
+            return $this->user->registration($params['nickname'], $params['login'], $params['hashPassword'], $params['token'], $params['num']);
         }
         return false;
     }
@@ -26,17 +33,10 @@ class Application {
         return false;
     }
 
-    public function registration($params) {
-        if ($params) {
-            return $this->user->registration($params['nickname'], $params['login'], $params['hash'], $params['token'], $params['num']);
-        }
-        return false;
-    }
-
     public function join($params) {
         $user = $this->user->getUserByToken($params['token']);
         if ($user) {
-            return $this->game->join($user['id']);
+            return $this->game->join((int)$user->id);
         }
     }
 
@@ -60,12 +60,12 @@ class Application {
         }
     }
 
-    public function changeHash() {
-        return $this->game->changeHash();
+    public function changeMapHash() {
+        return $this->game->changeMapHash();
     }
 
-    public function getGamers() {
-        return $this->game->getGamers();
+    public function getOnlineGamers() {
+        return $this->game->getOnlineGamers();
     }
     public function getGamer($params) {
         return $this->game->getGamer($params['gamerId']);

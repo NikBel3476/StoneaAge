@@ -10,14 +10,29 @@ class User {
         }
     }
 
-    public function login($login, $hash, $num) {
+    public function login($login, $passwordHash, $token, $num) {
         $user = $this->db->getUserByLogin($login);
         if ($user) {
-            $token = md5($user['password'] . (string)$num);
-            if($hash === $token) {
-                $result = $this->db->updateToken($user['id'], $token); // обновить токен в DB
-                if ($result) {
-                    return $token;
+            $isRightPassword = password_verify($passwordHash, $user->password);
+            $isRightToken = md5($passwordHash . (string)$num) === $token;
+            if ($isRightPassword && $isRightToken) {
+                return $this->db->updateGamerTokenById($user->id, $token);
+            }
+        }
+        return false;
+    }
+
+    public function registration($nickname, $login, $passwordHash, $token, $num) {
+        if ($nickname && $login && $passwordHash && $token && $num) {
+            if (!$this->db->isRepeatedLogin($login)) {
+                if (md5($passwordHash . (string)$num) === $token) {
+                    $password = password_hash($passwordHash, PASSWORD_DEFAULT);
+                    $resToken = $this->db->createUser($nickname, $login, $password, $token);
+                    if ($resToken) {
+                        $gamer = $this->db->getGamerByLogin($login);
+                        $this->db->createGamer($gamer->id);
+                        return $resToken;
+                    }
                 }
             }
         }
@@ -32,20 +47,6 @@ class User {
                 return true;
             }
         }
-        return false;
-    }
-
-
-    public function registration($nickname, $login, $hash, $token, $num) {
-            if ($nickname && $login && $hash && $token && $num) {
-                $hash5 = md5($hash . (string)$num);
-                if ($hash5 === $token) {
-                    $result = $this->db->createUser($nickname, $login, $hash, $token);
-                    if ($result) {
-                        return $result;
-                    }
-                }
-            }
         return false;
     }
 }
