@@ -1,10 +1,8 @@
 export default class Server {
     token = '';
-    map = {}; 
-    hash = '';
-    update = null;
-    gamer = {};
     mapHash = '';
+    map = {}; 
+    gamer = {};
 
     async sendRequest(method, data = {}) {
         data.method = method;
@@ -23,13 +21,15 @@ export default class Server {
         if (login && password) {
             var md5 = require('md5');
             const num = Math.round(Math.random() * 100000);
-            const hash = md5(md5(login + password) + num);
-            this.token = await this.sendRequest('login', { login, hash, num });
+            const hashPassword = md5(login + password);
+            this.token = md5(hashPassword + num);
+            this.token = await this.sendRequest('login', { login, hashPassword, num });
             if (this.token) {
                 this.gamer = await this.sendRequest('join');
-                localStorage.setItem('token', this.token);
-                //this.update = setInterval(() => {this.checkHash()}, 5000);
-                return true;
+                if (this.gamer) {
+                    localStorage.setItem('token', this.token);
+                    return true;
+                }
             }
         }
         return false;
@@ -39,15 +39,16 @@ export default class Server {
         if (nickname && login && password) {
             var md5 = require('md5');
             const num = Math.round(Math.random() * 100000);
-            const hash = md5(login + password);
-            this.token = md5(hash + num);
-            this.token =  await this.sendRequest('registration', { nickname, login, hash, num });
-            if (this.token) {
+            const hashPassword = md5(login + password);
+            this.token = md5(hashPassword + num);
+            const checkToken =  await this.sendRequest('registration', { nickname, login, hashPassword, num });
+            if (this.token === checkToken) {
                 this.gamer = await this.sendRequest('join');
-                console.log(this.gamer);
-                localStorage.setItem('token', this.token);
-                //this.update = setInterval(() => {this.checkHash()}, 5000);
-                return true;
+                if (this.gamer) {
+                    console.log(this.gamer);
+                    localStorage.setItem('token', this.token);
+                    return true;
+                }
             }    
         }
         return false;
@@ -62,7 +63,6 @@ export default class Server {
                 this.map = {};
                 this.gamer = {};
                 localStorage.setItem('token', '');
-                //clearInterval(this.update);
             }
         }
     }
@@ -74,9 +74,9 @@ export default class Server {
     async checkHash () {
         if (this.token) {
             let hash = this.mapHash;
-            const bdHash = await this.sendRequest ('updateMap', {hash});
-            if(bdHash !== this.hash && bdHash !== false) {
-                this.mapHash = bdHash;
+            const bdMapHash = await this.sendRequest ('updateMap', {hash});
+            if(bdMapHash !== this.hash && bdMapHash !== false) {
+                this.mapHash = bdMapHash;
                 console.log('mapHash: ' + this.mapHash);
                 this.map = await this.getMap();
                 if (this.map) {
